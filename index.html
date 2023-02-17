@@ -21,7 +21,7 @@
   </header>
   
   <div class="container">
-  <form class="needs-validation" name="RegForm" onsubmit="event.preventDefault();addFormData();" autocomplete="on" novalidate>
+  <form class="needs-validation" name="RegForm" id="RegForm" onsubmit="event.preventDefault();addFormData();" autocomplete="on" novalidate>
     <!-- 2 column grid layout with text inputs for the first and last names -->
     <div class="row mb-4">
       <div class="col">
@@ -133,7 +133,7 @@
     </div>
 
     <!-- Reset button -->
-    <button type="reset" class="btn btn-primary btn-block mb-4 float-start">Reset</button>
+    <button type="reset" id="resetbtn" class="btn btn-primary btn-block mb-4 float-start">Reset</button>
   
     <!-- Submit button -->
     <button type="submit" value="submit" id="Submit" class="btn btn-primary btn-block mb-4 float-end">Submit</button>
@@ -164,7 +164,7 @@
           </table>
           
       </div>
-      <Script>
+<Script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields
         (function () {
           'use strict'
@@ -175,21 +175,33 @@
           // Loop over them and prevent submission
           Array.prototype.slice.call(forms)
             .forEach(function (form) {
-              form.addEventListener('submit', function (event) {
-                if (!form.checkValidity()) {
-                  event.preventDefault()
-                  event.stopPropagation()
-                }
-        
-                form.classList.add('was-validated')
-              }, false)
-            })
+                form.addEventListener('submit', function (event) {
+                  if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                  }
+                  else{
+                    addFormData();
+                  }
+                  form.classList.add('was-validated');
+
+                  form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    ('#RegForm')
+                    form.classList.toggle("reset")
+                    form.classList.remove('was-validated')
+                  });
+                },false);
+            
+                form.addEventListener('reset', function(event) {
+                event.preventDefault();
+                ('#RegForm')
+                form.classList.toggle("reset")
+                form.classList.remove('was-validated')
+              });
+            })      
         })()
-        
-        
-        
-        // date picker 
-         </Script>
+  </Script>
  <script src="crudScript.js"></script>
  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
